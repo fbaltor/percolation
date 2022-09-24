@@ -32,6 +32,7 @@ public class Percolation {
         int index = index(row, col);
         if (!status[index]) {
             status[index] = true;
+            open++;
         }
     }
 
