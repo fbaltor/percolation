@@ -1,34 +1,34 @@
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
-public class Percolation {
-    private int n;
+public final class Percolation {
+    private int width;
     private int size;
     private int[] sites;
     private int open;
     private boolean[] status;
 
     private WeightedQuickUnionUF uf;
-    private int top, bottom;
+    private int top;
+    private int bottom;
 
-
-    public Percolation (int n) {
-        n = n;
-        size = n * n;
+    public Percolation(final int n) {
+        width = n;
+        size = width * width;
         sites = new int[size];
         open = 0;
         status = new boolean[size];
 
-        top = n*n;
+        top = width * width;
         bottom = top + 1;
         uf = new WeightedQuickUnionUF(size + 2);
 
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < width; i++) {
             uf.union(i, top);
             uf.union(size - (i + 1), bottom);
         }
     }
 
-    public void open(int row, int col) {
+    public void open(final int row, final int col) {
         int index = index(row, col);
         if (!status[index]) {
             status[index] = true;
@@ -36,11 +36,11 @@ public class Percolation {
         }
     }
 
-    public boolean isOpen(int row, int col) {
+    public boolean isOpen(final int row, final int col) {
         return status[index(row, col)];
     }
 
-    public boolean isFull(int row, int col) {
+    public boolean isFull(final int row, final int col) {
         return uf.find(index(row, col)) == uf.find(top);
     }
 
@@ -52,10 +52,10 @@ public class Percolation {
         return uf.find(top) == uf.find(bottom);
     }
 
-    private int index(int row, int col) {
-        return n * (row - 1) + (col - 1);
+    private int index(final int row, final int col) {
+        return width * (row - 1) + (col - 1);
     }
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
     }
 }
